@@ -1,6 +1,6 @@
 const Manager = require('../lib/Manager')
 
-describe("Employee", () => {
+describe("Manager", () => {
     describe("Initialization", () => {
         it("should create an object containing a 'name' property when called with the 'new' keyword", () => {
             
