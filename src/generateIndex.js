@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const generateManagerHTML = function (Manager) {
     return `
     <div class="card my-4" style="width: 20rem;">
@@ -52,6 +54,34 @@ const generateInternHTML = function (Intern) {
 `;
 }
 
+
+const generateFinalHTML = function (teamCards) {
+    return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+        <title>Team Profile Generator</title>
+     </head>
+     <body>
+     <div>
+         <div class="jumbotron bg-danger p-4">
+             <h1 class="d-flex justify-content-center text-white">My Team</h1>
+     </div>
+     <div class="d-flex flex-wrap justify-content-evenly space-between">
+        ${teamCards}
+     </div>
+ 
+ 
+    </body>
+    </html>`
+    
+}
+
 generateHTML = (data) => {
     teamProfile = [];
 
@@ -79,36 +109,17 @@ generateHTML = (data) => {
     const teamCards = teamProfile.join('');
 
     const generateTeamProfile = generateFinalHTML(teamCards)
-    return generateTeamProfile;
+    writeFile(generateTeamProfile);
 }
 
-
-
-const generateFinalHTML = function (teamCards) {
-    return `
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <title>Team Profile Generator</title>
-     </head>
-     <body>
-     <div>
-         <div class="jumbotron bg-danger p-4">
-             <h1 class="d-flex justify-content-center text-white">My Team</h1>
-     </div>
-     <div class="d-flex flex-wrap justify-content-evenly space-between">
- 
-     </div>
- 
- 
-    </body>
-    </html>`
-    
-}
+function writeFile(generateTeamProfile) {
+    fs.writeFile('./dist/index.html', generateTeamProfile, err => {
+        if (err) {
+            console.log(err); 
+        } else {
+            console.log("Team created")
+        }
+    })
+};
 
 module.exports = generateHTML;

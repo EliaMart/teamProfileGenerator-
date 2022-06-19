@@ -1,8 +1,11 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
+
 const Engineer = require ('./lib/Engineer.js');
 const Manager = require ('./lib/Manager.js');
 const Intern = require ('./lib/Intern.js');
+
+const generateIndex = require ('./src/generateIndex.js')
+
 
 const infoArr = []
 
@@ -54,7 +57,7 @@ const engineerQuestions = () => {
         {
             type: 'input',
             name: 'email',
-            message: 'Enter the manager email address',
+            message: 'Enter your email address',
         },
         {
             type: 'input',
@@ -87,7 +90,7 @@ const internQuestions = () => {
         {
             type: 'input',
             name: 'email',
-            message: 'Enter the manager email address',
+            message: 'Enter the your email address',
         },
         {
             type: 'input',
@@ -131,4 +134,17 @@ const nextTeamMemeber = () => {
     })
 };
 
-managerQuestions();
+
+
+
+
+managerQuestions()
+//     .then(infoArr => {
+//         return generateHTML(infoArr);
+//     })
+//     .then(info => {
+//         return writeFile(info);
+//     })
+//     .catch(err => {
+//         console.log(err);
+//     });
