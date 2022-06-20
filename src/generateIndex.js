@@ -1,4 +1,5 @@
 const fs = require('fs');
+const path = require('path');
 
 const generateManagerHTML = function (Manager) {
     return `
@@ -109,17 +110,29 @@ generateHTML = (data) => {
     const teamCards = teamProfile.join('');
 
     const generateTeamProfile = generateFinalHTML(teamCards)
-    writeFile(generateTeamProfile);
+    buildTeam(generateTeamProfile);
 }
 
-function writeFile(generateTeamProfile) {
-    fs.writeFile('./dist/index.html', generateTeamProfile, err => {
-        if (err) {
-            console.log(err); 
-        } else {
-            console.log("Team created")
-        }
-    })
-};
+
+const OUTPUT_DIR = path.resolve(__dirname, "output")
+const outputPath = path.join(OUTPUT_DIR, "./dist/index.html");
+
+  function buildTeam() {
+    // Create the output directory if the output path doesn't exist
+    if (!fs.existsSync(OUTPUT_DIR)) {
+      fs.mkdirSync(OUTPUT_DIR)
+    }
+    fs.writeFileSync(outputPath, render(teamCards), "utf-8");
+  }
+
+// function writeFile(generateTeamProfile) {
+//     fs.writeFile('./dist/index.html', generateTeamProfile, err => {
+//         if (err) {
+//             console.log(err); 
+//         } else {
+//             console.log("Team created")
+//         }
+//     })
+// };
 
 module.exports = generateHTML;

@@ -135,16 +135,24 @@ const nextTeamMemeber = () => {
 };
 
 
-
+// const writeFile = data => {
+//         fs.writeFile('./dist/index.html', data, err => {
+//             if (err) {
+//                 console.log(err); 
+//             } else {
+//                 console.log("Team created")
+//             }
+//         })
+//     };
 
 
 managerQuestions()
-//     .then(infoArr => {
-//         return generateHTML(infoArr);
-//     })
-//     .then(info => {
-//         return writeFile(info);
-//     })
-//     .catch(err => {
-//         console.log(err);
-//     });
+    // .then(infoArr => {
+    //     return generateHTML(infoArr);
+    // })
+    // .then(returnedHTML => {
+    //     return writeFile(returnedHTML);
+    // })
+    // .catch(err => {
+    //     console.log(err);
+    // });
