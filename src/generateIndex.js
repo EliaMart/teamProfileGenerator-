@@ -1,60 +1,62 @@
 const fs = require('fs');
 const path = require('path');
 
-const generateManagerHTML = function (Manager) {
+const OUTPUT_DIR = path.resolve(__dirname, "output/dist");
+const outputPath = path.join(OUTPUT_DIR, "./index.html");
+
+const generateManagerHTML = function (manager) {
     return `
     <div class="card my-4" style="width: 20rem;">
         <div class="card-header bg-primary text-white">
-            <h3 class="card-title">${Manager.name}</h3>
-            <h4 class="card-subtitle">Manager</h4>
+            <h3 class="card-title">${manager.name}</h3>
+            <h4 class="card-subtitle">manager</h4>
         </div>
     <div class="card-body bg-light p-3">
         <ul class="list-group">
-            <li class="list-group-item"> ID: ${Manager.Id}</li>
-            <li class="list-group-item">Email: <a href="mailito:${Manager.email}">${Manager.email}</a></li>
-            <li class="list-group-item">Office Number:${Manager.officeNumber}</li>
+            <li class="list-group-item"> ID: ${manager.id}</li>
+            <li class="list-group-item">Email: <a href="mailito:${manager.email}">${manager.email}</a></li>
+            <li class="list-group-item">Office Number:${manager.officeNumber}</li>
         </ul>
     </div>
     </div>
 `;
 }
 
-const generateEngineerHTML = function (Engineer) {
+const generateEngineerHTML = function (engineer) {
     return `
     <div class="card my-4" style="width: 20rem;">
     <div class="card-header bg-primary text-white">
-        <h3 class="card-title">${Engineer.name}</h3>
+        <h3 class="card-title">${engineer.name}</h3>
         <h4 class="card-subtitle">Engineer</h4>
     </div>
 <div class="card-body bg-light p-3">
     <ul class="list-group">
-        <li class="list-group-item"> ID: ${Engineer.Id}</li>
-        <li class="list-group-item">Email: <a href="mailito:${Engineer.email}">${Engineer.email}</a></li>
-        <li class="list-group-item">GitHub: <a href="https://github.com/${Engineer.github}" target="_blank">${Engineer.github}</a></li>
+        <li class="list-group-item"> ID: ${engineer.id}</li>
+        <li class="list-group-item">Email: <a href="mailito:${engineer.email}">${engineer.email}</a></li>
+        <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.github}" target="_blank">${engineer.github}</a></li>
     </ul>
 </div>
 </div>
 `;
 }
 
-const generateInternHTML = function (Intern) {
+const generateInternHTML = function (intern) {
     return `
     <div class="card my-4" style="width: 20rem;">
     <div class="card-header bg-primary text-white">
-        <h3 class="card-title">${Intern.name}</h3>
+        <h3 class="card-title">${intern.name}</h3>
         <h4 class="card-subtitle">Intern</h4>
     </div>
 <div class="card-body bg-light p-3">
     <ul class="list-group">
-        <li class="list-group-item"> ID: ${Intern.Id}</li>
-        <li class="list-group-item">Email: <a href="mailito:${Intern.email}">${Intern.email}</a></li>
-        <li class="list-group-item">School: ${Intern.school}</li>
+        <li class="list-group-item"> ID: ${intern.id}</li>
+        <li class="list-group-item">Email: <a href="mailito:${intern.email}">${intern.email}</a></li>
+        <li class="list-group-item">School: ${intern.school}</li>
     </ul>
 </div>
 </div>
 `;
 }
-
 
 const generateFinalHTML = function (teamCards) {
     return `
@@ -80,59 +82,36 @@ const generateFinalHTML = function (teamCards) {
  
     </body>
     </html>`
-    
 }
 
 generateHTML = (data) => {
     teamProfile = [];
 
-    for(var i=0; i< data.length; i++) {
+    for (var i = 0; i < data.length; i++) {
         const employee = data[i];
         const role = employee.getRole();
 
         if (role === 'Manager') {
             const managerCard = generateManagerHTML(employee);
-
             teamProfile.push(managerCard);
-        
-        }else if (role === 'Intern') {
+        } else if (role === 'Intern') {
             const internCard = generateInternHTML(employee);
-
             teamProfile.push(internCard);
-        
-        }else if (role === 'Engineer') {
-            const engineerCard = generateEngineerHTML(employees);
-
+        } else if (role === 'Engineer') {
+            const engineerCard = generateEngineerHTML(employee);
             teamProfile.push(engineerCard);
         }
     }
-
     const teamCards = teamProfile.join('');
-
-    const generateTeamProfile = generateFinalHTML(teamCards)
+    const generateTeamProfile = generateFinalHTML(teamCards);
     buildTeam(generateTeamProfile);
 }
 
-
-const OUTPUT_DIR = path.resolve(__dirname, "output")
-const outputPath = path.join(OUTPUT_DIR, "./dist/index.html");
-
-  function buildTeam() {
-    // Create the output directory if the output path doesn't exist
+function buildTeam(teamCards) {
     if (!fs.existsSync(OUTPUT_DIR)) {
-      fs.mkdirSync(OUTPUT_DIR)
+      fs.mkdirSync(OUTPUT_DIR);
     }
-    fs.writeFileSync(outputPath, render(teamCards), "utf-8");
-  }
-
-// function writeFile(generateTeamProfile) {
-//     fs.writeFile('./dist/index.html', generateTeamProfile, err => {
-//         if (err) {
-//             console.log(err); 
-//         } else {
-//             console.log("Team created")
-//         }
-//     })
-// };
+    fs.writeFileSync(outputPath, teamCards, "utf-8");
+}
 
 module.exports = generateHTML;

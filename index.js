@@ -6,7 +6,6 @@ const Intern = require ('./lib/Intern.js');
 
 const generateIndex = require ('./src/generateIndex.js')
 
-
 const infoArr = []
 
 const managerQuestions = () => {
@@ -32,13 +31,9 @@ const managerQuestions = () => {
             message: 'Enter the manager office number',
         },
     ])
-
     .then(({managerName, managerId, managerEmail, managerNumber}) => {
-        const manager = new Manager (managerName, managerId, managerEmail, managerNumber);
-
-        infoArr.push(manager);
-        return nextTeamMemeber();
-
+        infoArr.push(new Manager (managerName, managerId, managerEmail, managerNumber));
+        nextTeamMember();
     });
 };
 
@@ -51,7 +46,7 @@ const engineerQuestions = () => {
         },
         {
             type: 'input',
-            name: 'Id',
+            name: 'id',
             message: 'Enter your ID?',
         },
         {
@@ -66,11 +61,9 @@ const engineerQuestions = () => {
         },
     ])
 
-    .then(({name, Id, email, github}) => {
-        infoArr.push(new Engineer(name, Id, email, github))
-
-        return nextTeamMemeber();
-
+    .then(({name, id, email, github}) => {
+        infoArr.push(new Engineer(name, id, email, github))
+        nextTeamMember();
     });
 };
 
@@ -84,7 +77,7 @@ const internQuestions = () => {
         },
         {
             type: 'input',
-            name: 'Id',
+            name: 'id',
             message: 'Enter your ID?',
         },
         {
@@ -99,16 +92,14 @@ const internQuestions = () => {
         },
     ])
 
-    .then(({name, Id, email, school}) => {
-        infoArr.push(new Intern(name, Id, email, school))
-
-        return nextTeamMemeber();
-
+    .then(({name, id, email, school}) => {
+        infoArr.push(new Intern(name, id, email, school))
+        nextTeamMember();
     });
 };
 
 
-const nextTeamMemeber = () => {
+const nextTeamMember = () => {
     inquirer.prompt  ([
         {
             type: 'list',
@@ -121,38 +112,15 @@ const nextTeamMemeber = () => {
             ]
         },
     ])
-
     .then((teamRole) => {
         if (teamRole.role === 'Engineer') {
-            return engineerQuestions();
+            engineerQuestions();
         } else if (teamRole.role === 'Intern') {
-            return internQuestions();
+            internQuestions();
         } else {
-            return (infoArr);
+            generateIndex(infoArr);
         }
-
     })
 };
 
-
-// const writeFile = data => {
-//         fs.writeFile('./dist/index.html', data, err => {
-//             if (err) {
-//                 console.log(err); 
-//             } else {
-//                 console.log("Team created")
-//             }
-//         })
-//     };
-
-
-managerQuestions()
-    // .then(infoArr => {
-    //     return generateHTML(infoArr);
-    // })
-    // .then(returnedHTML => {
-    //     return writeFile(returnedHTML);
-    // })
-    // .catch(err => {
-    //     console.log(err);
-    // });
+managerQuestions();
