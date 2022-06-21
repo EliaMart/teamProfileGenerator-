@@ -31,7 +31,11 @@ To install this application you will clone the repository to your local machine.
 
 ## Usage 
 
-You will use inquirer in your command line to run application. Below is a photo of the webpage and video.
+You will use inquirer in your command line to run application. Below is a photo of the webpage.
+
+![Profile Generator](./assets/profilegenerator.png)
+
+[Here is a link to walkthrough of the appliction](https://drive.google.com/file/d/17rtwBx0kW5zUrovd0rbmbG0-i9zP6Qzf/view)
 
 ## Contribution 
 

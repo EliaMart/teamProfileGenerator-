@@ -9,12 +9,12 @@ const generateManagerHTML = function (manager) {
     <div class="card my-4" style="width: 20rem;">
         <div class="card-header bg-primary text-white">
             <h3 class="card-title">${manager.name}</h3>
-            <h4 class="card-subtitle">manager</h4>
+            <h4 class="card-subtitle">Manager</h4>
         </div>
     <div class="card-body bg-light p-3">
         <ul class="list-group">
             <li class="list-group-item"> ID: ${manager.id}</li>
-            <li class="list-group-item">Email: <a href="mailito:${manager.email}">${manager.email}</a></li>
+            <li class="list-group-item">Email: <a href="mailito:${manager.email}?subject=Web%20Inquiry">${manager.email}</a></li>
             <li class="list-group-item">Office Number:${manager.officeNumber}</li>
         </ul>
     </div>
@@ -32,7 +32,7 @@ const generateEngineerHTML = function (engineer) {
 <div class="card-body bg-light p-3">
     <ul class="list-group">
         <li class="list-group-item"> ID: ${engineer.id}</li>
-        <li class="list-group-item">Email: <a href="mailito:${engineer.email}">${engineer.email}</a></li>
+        <li class="list-group-item">Email: <a href="mailito:${engineer.email}?subject=Web%20Inquiry">${engineer.email}</a></li>
         <li class="list-group-item">GitHub: <a href="https://github.com/${engineer.github}" target="_blank">${engineer.github}</a></li>
     </ul>
 </div>
@@ -50,7 +50,7 @@ const generateInternHTML = function (intern) {
 <div class="card-body bg-light p-3">
     <ul class="list-group">
         <li class="list-group-item"> ID: ${intern.id}</li>
-        <li class="list-group-item">Email: <a href="mailito:${intern.email}">${intern.email}</a></li>
+        <li class="list-group-item">Email: <a href="mailito:${intern.email}?subject=Web%20Inquiry">${intern.email}</a></li>
         <li class="list-group-item">School: ${intern.school}</li>
     </ul>
 </div>
